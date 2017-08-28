@@ -1,0 +1,1 @@
+/home/pi/picam/picam -o /recordings/hls --hlsenc --hlsenckeyuri enc.key --hlsenckey f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff --hlsenciv 000102030405060708090a0b0c0d0e0f  --time --alsadev hw:1,0 > /var/log/picam.log 2&>1

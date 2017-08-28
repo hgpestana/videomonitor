@@ -1,0 +1,10 @@
+argon2
+Django
+django-appconf
+django-compressor
+django-widget-tweaks
+isort
+lazy-object-proxy
+reportlab
+Unipath
+six
