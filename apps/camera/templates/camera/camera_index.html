@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "core/base.html" %}
+{% load i18n widget_tweaks %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header">
+                            <h4 class="title">{{ title }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="content">
+                        <a href="{% url "camera:add" %}" class="btn btn-info btn-fill btn-wd">{% trans "Add new webcam" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                            <thead>
+                                <th class="text-center">{% trans "ID" %}</th>
+                                <th class="text-center">{% trans "Name" %}</th>
+                                <th class="text-center">{% trans "URL" %}</th>
+                                <th class="text-center"></th>
+                            </thead>
+                            <tbody>
+                            {% if object_list %}
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td class="text-center">{{ object.pk }}</td>
+                                        <td class="text-center">{{ object.name }}</td>
+                                        <td class="text-center">{{ object.url }}</td>
+                                        <td class="text-center">
+                                            <a href="{% url 'camera:view' object.pk %}" title="View camera information" data-tooltip>
+                                                <i class="ti-eye"></i>
+                                            </a>
+                                            <a href="{% url 'camera:edit' object.pk %}" title="Edit camera information" data-tooltip>
+                                                <i class="ti-pencil"></i>
+                                            </a>
+                                            <a target="_blank" class="delete" href='{% url "camera:delete" object.pk %}' title="Delete camera information" data-tooltip>
+                                                <i class="ti-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4"><p class="text-center small">(no data to display)</p></td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block bottom %}
+{% include "camera/camera_index_bottom_js.html" %}
+{% endblock %}

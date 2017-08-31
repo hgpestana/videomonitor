@@ -18,13 +18,21 @@ from unipath import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# This is how you can define name of your site
+SITE_DIR = 'videomonitor'
+
 SERVER = 'videmonitor.local'
 
 ROOT = Path(os.path.abspath(__file__)).ancestor(2)
 
+SITE_NAME = 'Video Monitor'
+
 URL = 'https://{}'.format(SERVER)
 
 LOGIN_URL = reverse_lazy('login:index')
+
+# Time format string
+TIME_FORMAT = 'Y-m-d H:i'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -55,7 +63,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     # Video Monitor Apps
+    'apps.core',
     'apps.camera',
+    'apps.login',
+    'apps.user',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +100,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'videomonitor.wsgi.application'
 
 
+# E-MAIL OPTIONS
+DEFAULT_FROM_EMAIL = 'suporte@lernasnuvens.pt'
+REPORT_EMAIL_USER = 'suporte@lernasnuvens.pt'
+
+# E-MAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''
+EMAIL_PORT = 25
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -99,6 +123,37 @@ DATABASES = {
     }
 }
 
+IME_ZONE = 'Europe/Lisbon'
+
+LANGUAGE_CODE = 'pt'
+
+gettext = lambda s: s
+
+LANGUAGES = (
+    ('en', gettext('American English')),
+    ('en-gb', gettext('British English')),
+    ('ca', gettext('Català')),
+    ('cs', gettext('Česky')),
+    ('de', gettext('Deutsch')),
+    ('de-at', gettext('Österreichisches Deutsch')),
+    ('el', gettext('Ελληνικά')),
+    ('es', gettext('Español')),
+    ('fr', gettext('Français')),
+    ('it', gettext('Italiano')),
+    ('ja', gettext('日本語')),
+    ('ko-kr', gettext('한국어')),
+    ('hu', gettext('Magyar')),
+    ('nl', gettext('Nederlands')),
+    ('nb', gettext('Norsk (Bokmål)')),
+    ('pl', gettext('Polski')),
+    ('pt', gettext('Português')),
+    ('pt-br', gettext('Português do Brasil')),
+    ('ru', gettext('Русский')),
+    ('sq', gettext('Shqipe')),
+    ('fi', gettext('Suomi')),
+    ('tr', gettext('Türkçe')),
+    ('uk-ua', gettext('українська мова')),
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -118,6 +173,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Password hashers
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -139,4 +203,13 @@ USE_TZ = True
 STATIC_ROOT = ROOT.child('static')
 
 STATIC_URL = '/static/'
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
 

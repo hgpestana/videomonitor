@@ -48,9 +48,9 @@ class CameraIndexView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CameraIndexView, self).get_context_data(**kwargs)
-        context['page_title'] = _('Camera list - VIDEO MONITOR')
-        context['camera_active'] = 'active open'
-        context['camera_viewall_active'] = 'active'
+        context['page_title'] = _('WEBCAMS')
+        context['title'] = _('Webcam list')
+        context['camera_active'] = 'active'
         context['result'] = self.get_alert_information()
 
         return context
@@ -67,9 +67,9 @@ class CameraDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CameraDetailView, self).get_context_data(**kwargs)
-        context['page_title'] = _('Camera detail - VIDEO MONITOR')
-        context['camera_active'] = 'active open'
-        context['camera_viewall_active'] = 'active'
+        context['page_title'] = _('WEBCAMS')
+        context['title'] = _('Webcam detail view')
+        context['camera_active'] = 'active'
         context['progress'] = self.get_profile_completion()
 
         return context
@@ -104,10 +104,9 @@ class CameraAddView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CameraAddView, self).get_context_data(**kwargs)
-        context['page_title'] = _('Add new camera - VIDEO MONITOR')
-        context['title'] = _('Add a new camera')
-        context['camera_active'] = 'active open'
-        context['camera_add_active'] = 'active'
+        context['page_title'] = _('WEBCAMS')
+        context['title'] = _('Add a new webcam')
+        context['camera_active'] = 'active'
         context['is_new_camera'] = True
 
         return context
@@ -131,10 +130,9 @@ class CameraEditView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(CameraEditView, self).get_context_data(**kwargs)
-        context['page_title'] = _('Edit camera - VIDEO MONITOR')
-        context['title'] = _('Edit camera')
-        context['camera_active'] = 'active open'
-        context['camera_viewall_active'] = 'active'
+        context['page_title'] = _('WEBCAMS')
+        context['title'] = _('Edit webcam')
+        context['camera_active'] = 'active '
         context['is_new_camera'] = False
 
         return context

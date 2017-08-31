@@ -1,0 +1,87 @@
+{% extends "core/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header">
+                            <h4 class="title">{{ title }}</h4>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "First name" %} </label>
+                                        <p>{{ object.first_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Last name" %} </label>
+                                        <p>{{ object.last_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Username" %} </label>
+                                        <p>{{ object.username }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Email" %} </label>
+                                        <p>{{ object.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Is staff?" %} </label>
+                                        <p>{{ object.is_staff }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Is superuser?" %} </label>
+                                        <p>{{ object.is_superuser }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Is active?" %} </label>
+                                        <p>{{ object.is_active }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="content">
+                        <a href="{% url "user:edit" object.pk %}" class="btn btn-success btn-fill btn-wd">{% trans "Edit user" %}</a>
+                        <a href="{% url "user:index" %}" class="btn btn-danger btn-fill btn-wd">{% trans "Close" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

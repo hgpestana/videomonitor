@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', RedirectView.as_view(url='camera/')),
     url(r'^camera/', include('apps.camera.urls', namespace='camera')),
+    url(r'^login/', include('apps.login.urls', namespace='login')),
+    url(r'^user/', include('apps.user.urls', namespace='user')),
 ]

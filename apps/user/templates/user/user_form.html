@@ -1,0 +1,136 @@
+{% extends "core/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="col-lg-12 col-md-12">
+                <div class="header">
+                    <h4 class="title">{{ title }}</h4>
+                </div>
+                <div class="content">
+                    <form method='POST' role="form" action=''>
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            {% for error in form.non_field_errors %}
+                            <i class="fa fa-times"></i> {{ error }}
+                            <br>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if is_new_account %}
+                        {% render_field form.is_new_account value=is_new_account %}
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.first_name.id_for_label }}'>{% trans "First name" %} </label>
+                                    {% trans "First name" as first_name %}
+                                    {% render_field form.first_name placeholder=first_name class="form-control border-input" %}
+                                    {{ form.first_name.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.last_name.id_for_label }}'>{% trans "Last name" %} </label>
+                                    {% trans "Last name" as last_name %}
+                                    {% render_field form.last_name placeholder=last_name class="form-control border-input" %}
+                                    {{ form.last_name.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.username.id_for_label }}'>{% trans "Username" %} </label>
+                                    {% trans "Username" as username %}
+                                    {% render_field form.username placeholder=username class="form-control border-input" %}
+                                    {{ form.username.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.password.id_for_label }}'>{% trans "Password" %} </label>
+                                    {% render_field form.password class="form-control border-input" %}
+                                    {{ form.password.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.password_repeat.id_for_label }}'>{% trans "Repeat password" %} </label>
+                                    {% render_field form.password_repeat class="form-control border-input" %}
+                                    {{ form.password_repeat.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.email.id_for_label }}'>{% trans "Email" %} </label>
+                                    {% trans "Email" as email %}
+                                    {% render_field form.email placeholder=email class="form-control border-input" %}
+                                    {{ form.email.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.is_staff.id_for_label }}'>{% trans "Is staff?" %} </label>
+                                    {% render_field form.is_staff class="form-control border-input" %}
+                                    {{ form.is_staff.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.is_superuser.id_for_label }}'>{% trans "Is superuser?" %} </label>
+                                    {% render_field form.is_superuser class="form-control border-input" %}
+                                    {{ form.is_superuser.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for='{{ form.is_active.id_for_label }}'>{% trans "Is active?" %} </label>
+                                    {% render_field form.is_active class="form-control border-input" %}
+                                    {{ form.is_active.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info btn-fill btn-wd">
+                                {% if is_new_camera %}
+                                    {% trans "Submit" %}
+                                    {% else %}
+                                    {% trans "Update" %}
+                                {% endif %}
+                            </button>
+                            <a href="{% url "user:index" %}" class="btn btn-danger btn-fill btn-wd">{% trans "Cancel" %}</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

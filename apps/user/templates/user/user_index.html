@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header">
+                            <h4 class="title">{{ title }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="content">
+                        <a href="{% url "user:add" %}" class="btn btn-info btn-fill btn-wd">{% trans "Add new user" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                            <thead>
+                                <th class="text-center">{% trans "ID" %}</th>
+                                <th class="text-center">{% trans "First name" %}</th>
+                                <th class="text-center">{% trans "Last name" %}</th>
+                                <th class="text-center">{% trans "Username" %}</th>
+                                <th class="text-center">{% trans "Email" %}</th>
+                                <th class="text-center"></th>
+                            </thead>
+                            <tbody>
+                            {% if object_list %}
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td class="text-center">{{ object.pk }}</td>
+                                        <td class="text-center">{{ object.first_name }}</td>
+                                        <td class="text-center">{{ object.last_name }}</td>
+                                        <td class="text-center">{{ object.username }}</td>
+                                        <td class="text-center">{{ object.email }}</td>
+                                        <td class="text-center">
+                                            <a href="{% url 'user:view' object.pk %}" title="View user information" data-tooltip>
+                                                <i class="ti-eye"></i>
+                                            </a>
+                                            <a href="{% url 'user:edit' object.pk %}" title="Edit user information" data-tooltip>
+                                                <i class="ti-pencil"></i>
+                                            </a>
+                                            <a target="_blank" class="delete" href='{% url "user:delete" object.pk %}' title="Delete user information" data-tooltip>
+                                                <i class="ti-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4"><p class="text-center small">(no data to display)</p></td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block bottom %}
+{% include "user/user_index_bottom_js.html" %}
+{% endblock %}

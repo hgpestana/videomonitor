@@ -1,0 +1,78 @@
+{% load staticfiles compress i18n %}
+
+{% compress js %}
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $(document).ready(function () {
+
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        var onDelete = function () {
+            var url = this.href;
+            $.confirm({
+                closeIcon: true,
+                columnClass: 'medium',
+                icon: 'fa fa-warning',
+                title: '{% trans "User deletion!" %}',
+                content: '{% trans "<br/>Are you sure you want to <span class=\"text-danger\"> delete the camera information</span>?<br/>This cannot be undone!" %}',
+                type: 'red',
+                buttons: {
+                    confirm: {
+                        text: '{% trans "Delete" %}',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.post(url, function (data) {
+                                if (data.result == "ok") {
+                                    window.location.href = window.location.href.replace(/.*|$/, "ZGVsZXRlZA==");
+                                } else {
+                                    alert("smth goes wrong");
+                                }
+                            }).fail(function () {
+                                alert("error");
+                            });
+                        },
+                    },
+                    cancel: {
+                        text: '{% trans "Cancel" %}',
+                        action: function () {
+                        },
+                    },
+                }
+            });
+            return false;
+        };
+
+        $(".delete").click(onDelete);
+    });
+</script>
+{% endcompress %}
