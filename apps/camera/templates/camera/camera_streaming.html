@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block header %}
+{% include "core/header_styles.html" %}
+{% include "camera/camera_streaming_bottom_styles.html" %}
+{% include "core/header_js.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="header">
+                            <h4 class="title">{{ title }}</h4>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <h5>{% trans "Video Stream" %}</h5>
+                                        <video id="my_video_{{object.pk}}" class="video-js vjs-default-skin" controls preload="auto" width="100%" data-setup='{}'>
+                                            <source src="{{ object.url }}" type="application/x-mpegURL">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "URL" %} </label>
+                                        <p>{{ object.url }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Description" %} </label>
+                                        <p>{{ object.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{% trans "Comments" %} </label>
+                                        <p>{{ object.comments }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="container-fluid">
+                    <div class="content">
+                        <a href="{% url "camera:edit" object.pk %}" class="btn btn-success btn-fill btn-wd">{% trans "Edit camera" %}</a>
+                        <a href="{% url "camera:index" %}" class="btn btn-danger btn-fill btn-wd">{% trans "Close" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block bottom %}
+{% include "camera/camera_streaming_bottom_js.html" %}
+{% endblock %}

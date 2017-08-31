@@ -91,6 +91,41 @@ class CameraDetailView(LoginRequiredMixin, DetailView):
 
         return progression
 
+class CameraStreamingView(LoginRequiredMixin, DetailView):
+    """
+    View that is used to show the camera streaming in the Video Monitor platform.
+    TODO: Develop this view
+    """
+
+    template_name = "camera/camera_streaming.html"
+    model = Camera
+
+    def get_context_data(self, **kwargs):
+        context = super(CameraStreamingView, self).get_context_data(**kwargs)
+        context['page_title'] = _('WEBCAMS')
+        context['title'] = _('Webcam streaming view')
+        context['camera_active'] = 'active'
+        context['progress'] = self.get_profile_completion()
+
+        return context
+
+    def get_profile_completion(self):
+        """
+        This function is used to calculate the total percentage of the camera's profile completion.
+        :return: the calculated percentage
+        """
+        camera = self.get_object()
+        filled_fields = 0
+        total_fields = len(camera._meta.fields)
+
+        for field in camera._meta.fields:
+            if getattr(camera, field.name):
+                filled_fields += 1
+
+        progression = floor((filled_fields / total_fields) * 100)
+
+        return progression
+
 
 class CameraAddView(LoginRequiredMixin, CreateView):
     """
