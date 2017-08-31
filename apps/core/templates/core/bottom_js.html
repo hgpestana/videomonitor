@@ -1,0 +1,24 @@
+{% load staticfiles compress %}
+
+{% compress js %}
+
+<!--   Core JS Files   -->
+<script src='{% static "core/js/jquery-1.10.2.js" %}' type="text/javascript"></script>
+<script src='{% static "core/js/bootstrap.min.js" %}' type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src='{% static "core/js/bootstrap-checkbox-radio.js" %}'></script>
+
+<!--  Charts Plugin -->
+<script src='{% static "core/js/chartist.min.js" %}'></script>
+
+<!--  Notifications Plugin    -->
+<script src='{% static "core/js/bootstrap-notify.js" %}'></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src='{% static "core/js/paper-dashboard.js" %}'></script>
+
+{% endcompress %}

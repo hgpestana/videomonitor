@@ -12,9 +12,19 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+from django.core.urlresolvers import reverse_lazy
+from unipath import Path
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SERVER = 'videmonitor.local'
+
+ROOT = Path(os.path.abspath(__file__)).ancestor(2)
+
+URL = 'https://{}'.format(SERVER)
+
+LOGIN_URL = reverse_lazy('login:index')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -25,7 +35,7 @@ SECRET_KEY = ')%hx3cgxmzytxcf=%vhou%$k$*oy75bm0(%o14*(bl770c6lgk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.120.200']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +47,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Compressor
+    "compressor",
+
+    # Widget tweaks (templating)
+    'widget_tweaks',
+
+    # Video Monitor Apps
+    'apps.camera',
 ]
 
 MIDDLEWARE = [
@@ -117,4 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = ROOT.child('static')
+
 STATIC_URL = '/static/'
+
