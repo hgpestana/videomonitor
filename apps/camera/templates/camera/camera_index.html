@@ -42,6 +42,9 @@
                                             <a href="{% url 'camera:view' object.pk %}" title="View camera information" data-tooltip>
                                                 <i class="ti-eye"></i>
                                             </a>
+                                            <a href="{% url 'camera:stream' object.pk %}" title="View camera stream" data-tooltip>
+                                                <i class="ti-video-camera"></i>
+                                            </a>
                                             <a href="{% url 'camera:edit' object.pk %}" title="Edit camera information" data-tooltip>
                                                 <i class="ti-pencil"></i>
                                             </a>
